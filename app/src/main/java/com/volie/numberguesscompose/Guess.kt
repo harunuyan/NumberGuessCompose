@@ -45,7 +45,15 @@ fun Guess(navController: NavController) {
             value = tfGuess.value,
             onValueChange = { tfGuess.value = it },
             label = { Text(text = "Guess") })
-        Button(onClick = { navController.navigate("result") }, Modifier.size(width = 250.dp, height = 50.dp)) {
+        Button(
+            onClick = {
+                navController.navigate("result") {
+                    popUpTo("guess") { inclusive = true }
+                }
+
+            },
+            Modifier.size(width = 250.dp, height = 50.dp)
+        ) {
             Text(text = "GUESS")
         }
     }
