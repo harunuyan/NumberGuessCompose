@@ -15,17 +15,26 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun Result(navController: NavController) {
+fun Result(navController: NavController, result: Boolean) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        Text(text = "Win", fontSize = 36.sp, fontWeight = FontWeight.Bold)
-        Image(
-            painter = painterResource(id = R.drawable.ic_happy_face),
-            contentDescription = "Description"
-        )
+
+        if (result) {
+            Text(text = "Win", fontSize = 36.sp, fontWeight = FontWeight.Bold)
+            Image(
+                painter = painterResource(id = R.drawable.ic_happy_face),
+                contentDescription = "description"
+            )
+        } else {
+            Text(text = "Lose", fontSize = 36.sp, fontWeight = FontWeight.Bold)
+            Image(
+                painter = painterResource(id = R.drawable.ic_sad_face),
+                contentDescription = "description"
+            )
+        }
     }
 }
 

@@ -21,9 +21,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.volie.numberguesscompose.ui.theme.NumberGuessComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -52,8 +54,11 @@ fun NavigationPage() {
         composable("guess") {
             Guess(navController)
         }
-        composable("result") {
-            Result(navController)
+        composable("result/{result}", arguments = listOf(
+            navArgument("result") { type = NavType.BoolType }
+        )) {
+            val result = it.arguments?.getBoolean("result")!!
+            Result(navController, result)
         }
     }
 }
