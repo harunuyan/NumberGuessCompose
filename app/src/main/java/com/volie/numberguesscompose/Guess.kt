@@ -10,8 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,13 +28,13 @@ import kotlin.random.Random
 @Composable
 fun Guess(navController: NavController) {
 
-    val tfGuess = remember { mutableStateOf("") }
-    val chances = remember { mutableStateOf(5) }
-    val tips = remember { mutableStateOf("") }
-    val randomNumber = remember { mutableStateOf(0) }
+    var tfGuess by remember { mutableStateOf("") }
+    var chances by remember { mutableStateOf(5) }
+    var tips by remember { mutableStateOf("") }
+    var randomNumber by remember { mutableStateOf(0) }
 
     LaunchedEffect(key1 = true) {
-        randomNumber.value = Random.nextInt(101)  // 0-101
+        randomNumber = Random.nextInt(101)  // 0-101
 
     }
 
@@ -42,45 +44,45 @@ fun Guess(navController: NavController) {
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         Text(
-            text = "Chances : ${chances.value}",
+            text = "Chances : $chances",
             fontSize = 36.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Red
         )
         Text(
-            text = "Help : ${tips.value}",
+            text = "Help : $tips",
             fontSize = 24.sp
         )
         TextField(
-            value = tfGuess.value,
-            onValueChange = { tfGuess.value = it },
+            value = tfGuess,
+            onValueChange = { tfGuess = it },
             label = { Text(text = "Guess") })
         Button(
             onClick = {
-                chances.value = chances.value - 1
+                chances -= 1
 
-                val guess = tfGuess.value.toInt()
+                val guess = tfGuess.toInt()
 
-                if (guess == randomNumber.value) {
+                if (guess == randomNumber) {
                     navController.navigate("result/true") {
                         popUpTo("guess") { inclusive = true }
                     }
                     return@Button
                 }
-                if (guess > randomNumber.value) {
-                    tips.value = "Decrease"
+                if (guess > randomNumber) {
+                    tips = "Decrease"
                 }
-                if (guess < randomNumber.value) {
-                    tips.value = "Increase"
+                if (guess < randomNumber) {
+                    tips = "Increase"
                 }
-                if (chances.value == 0) {
+                if (chances == 0) {
                     navController.navigate("result/false") {
                         popUpTo("guess") { inclusive = true }
                     }
                     return@Button
                 }
 
-                tfGuess.value = ""
+                tfGuess = ""
 
             },
             Modifier.size(width = 250.dp, height = 50.dp)
