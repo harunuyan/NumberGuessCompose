@@ -1,6 +1,8 @@
 # NumberGuessCompose
 
-Good Luck 🤔
+My first exercise to learn Compose.
+
+Good Luck, Btw 🤔
 
 <p align="center">
   <img src="https://github.com/harunuyan/NumberGuessCompose/assets/55163968/dea6bb18-1f2b-416a-bff1-912c4670d215" width="200" alt="Screenshot 1">
